@@ -6,7 +6,7 @@ pipeline{
         jdk "java-8"
     }
     environment{
-        JAVA_HOME="/home/jenkins/tools/hudson.model.JDK/java-8/openlogic-openjdk-8u442-b06-linux-x64"
+        JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
     }
     parameters {
         string defaultValue: '${BUILD_NUMBER}', description: 'Enter the version of docker image', name: 'VERSION'
