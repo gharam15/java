@@ -18,19 +18,20 @@ pipeline{
     }
 
     stages{
+        stage("vim info"){
+            steps{
+                script{
+                    def VM_IP =vimip()
+                }
+                       
+            }
+        }
         stage("build java app"){
             steps{
                 script{
                     sayhello('iti')
                 }
-                parallel(
-                    createFile: {
-                        sh "touch abcd"
-                    },
-                    buildJar:{
-                sh "mvn clean package install -Dmaven.test.skip=${Test}"
-                    }
-                )    
+                sh "mvn clean package install -Dmaven.test.skip=${Test}"          
             }
         }
         stage("build java app image"){
