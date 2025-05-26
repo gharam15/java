@@ -1,3 +1,4 @@
+@libraries('libx')
 pipeline{
     agent {
         label "java"
