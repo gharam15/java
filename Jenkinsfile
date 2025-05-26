@@ -1,5 +1,4 @@
-@Library('libx')
-
+@Library('libx') _
 pipeline {
     agent {
         label 'java'
