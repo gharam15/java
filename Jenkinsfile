@@ -30,8 +30,24 @@ pipeline{
         }
         stage("build java app image"){
             steps{
+                script{
+                    def dockerx =new org.iti.docker()
+                        dockerx.build('java',"${VERSION}")
+                }
                 sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} "
-                sh "docker build -t gharam/java-iti:v${VERSION} ."
+                
+            }
+        }
+         stage("push java app image"){
+            steps{
+                script{
+                    def dockerx =new org.iti.docker()
+                        dockerx.login("${DOCKER_USER}","${DOCKER_PASS}")
+                        dockerx.push("${DOCKER_USER}","${DOCKER_PASS}")
+                      
+                }
+                sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} "
+                
             }
         }
     }
