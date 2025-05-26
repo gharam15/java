@@ -1,10 +1,12 @@
 @Library('libx') _
 
 pipeline {
-    agent any
+    agent {
+        label "java"
+    }
 
     environment {
-        IMAGE_NAME = 'haneentharwat/java-task1'
+        IMAGE_NAME = "gharam/java-iti:${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -16,7 +18,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${imageName} ."
+                script {
+                    echo "Building Docker image with tag: ${env.IMAGE_NAME}"
+                    sh "docker build -t ${env.IMAGE_NAME} ."
+                }
             }
         }
 
