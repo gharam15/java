@@ -1,4 +1,4 @@
-@library('libx')_
+@Library('libx')_
 
 pipeline{
     agent {
