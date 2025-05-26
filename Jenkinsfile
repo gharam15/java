@@ -7,7 +7,7 @@ pipeline{
     }
     parameters {
         string defaultValue: '${BUILD_NUMBER}', description: 'Enter the version of docker image', name: 'VERSION'
-        choice choices: ['True', 'False'], description: 'skip test', name: 'Test'
+        choice choices: ['true', 'false'], description: 'skip test', name: 'Test'
     }
 
     stages{
