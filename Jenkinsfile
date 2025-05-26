@@ -4,6 +4,10 @@ pipeline {
     agent {
         label "java"
     }
+    
+    environment {
+        IMAGE_NAME = "gharam/java-iti:${BUILD_NUMBER}"
+    } 
 
     stages {
         stage('Build Java') {
@@ -16,7 +20,8 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image with tag: ${env.IMAGE_NAME}"
-                    sh "docker build -t gharam/java-iti:${BUILD_NUMBER} ."
+                    
+                    sh "docker build -t ${env.IMAGE_NAME} ."
                 }
             }
         }
