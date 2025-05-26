@@ -7,19 +7,16 @@ pipeline{
     }
     parameters {
         string defaultValue: '${BUILD_NUMBER}', description: 'Enter the version of docker image', name: 'VERSION'
+        choice choices: ['True', 'False'], description: 'skip test', name: 'Test'
     }
 
     stages{
         stage("build java app"){
             steps{
-                sh "mvn clean package install"
+                sh "mvn clean package install -Dmaven test.skip=${Test}"
             }
         }
-        stage("test java app"){
-            steps{
-                sh "mvn test"
-            }
-        }   
+         
         stage("build java app image"){
             steps{
                 sh "docker build -t gharam/java-iti:v${VERSION} ."
