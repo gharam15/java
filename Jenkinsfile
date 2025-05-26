@@ -29,7 +29,7 @@ pipeline{
         stage("build java app"){
             steps{
                 script{
-                    sayhello('iti')
+                    sayhello.infoip 'iti'
                 }
                 sh "mvn clean package install -Dmaven.test.skip=${Test}"          
             }
