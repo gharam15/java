@@ -1,4 +1,4 @@
-@library('libx')
+@library('libx')_
 
 pipeline{
     agent {
@@ -7,7 +7,7 @@ pipeline{
     tools{
         jdk "java-8"
     }
-     environment{
+    environment{
         DOCKER_USER = credentials('dockerhub-user')
         DOCKER_PASS = credentials('dockerhub-password')
     }
