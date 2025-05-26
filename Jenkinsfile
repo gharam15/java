@@ -1,2 +1,2 @@
-@Library('libx') _
-call()
+@Library('libx')
+pipeline()
