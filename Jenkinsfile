@@ -20,6 +20,9 @@ pipeline{
     stages{
         stage("build java app"){
             steps{
+                script{
+                    sayhello('iti')
+                }
                 parallel(
                     createFile: {
                         sh "touch abcd"
