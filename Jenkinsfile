@@ -1,68 +1,34 @@
-@Library('libx')_
-
 pipeline{
     agent {
-        label 'agent-0'
+        label "java"
     }
-
     tools{
         jdk "java-8"
     }
-
     environment{
-        DOCKER_USER = credentials('dockerhub-user')
-        DOCKER_PASS = credentials('dockerhub-password')
+        XYZ='ITI ITI ITI'
     }
-
     parameters {
-        string defaultValue: '${BUILD_NUMBER}', description: 'Enter the version of the docker image', name: 'VERSION'
-        choice choices: ['true', 'false'], description: 'Skip test', name: 'TEST'
+        string defaultValue: '${BUILD_NUMBER}', description: 'Enter the version of docker image', name: 'VERSION'
     }
 
     stages{
-        stage("VM info"){
+        stage("build Docker image"){
             steps{
-                script{
-                    def VM_IP = vmIp()
-                    sh "echo ${VM_IP}"
-                }
+                sh "docker build -t gharam/java-iti:v${VERSION} ."
             }
         }
-        stage("Build java app"){
+    stages{
+        stage("test Docker image"){
             steps{
-                script{
-                    sayHello "ITI"
-                }
-                sh "mvn clean package install -Dmaven.test.skip=${TEST}"
+                sh "docker test -t gharam/java-iti:v${VERSION} ."
             }
-        }
-        stage("build java app image"){
+        }   
+        stage("Push Docker image"){
             steps{
-                script{
-                    def dockerx = new org.iti.docker()
-                    dockerx.build("java", "${VERSION}")
-                }
-                sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} "
-            }
-        }
-        stage("push java app image"){
-            steps{
-                script{
-                    def dockerx = new org.iti.docker()
-                    dockerx.login("${DOCKER_USER}", "${DOCKER_PASS}")
-                    dockerx.push("${DOCKER_USER}", "${DOCKER_PASS}")
-                }
+                sh "docker push gharam/java-iti:v${VERSION}"
             }
         }
     }
-
-    post{
-        always{
-            sh "echo 'Clean the Workspace'"
-            cleanWs()
-        }
-        failure {
-            sh "echo 'failed'"
-        }
-    }
+}
 }
