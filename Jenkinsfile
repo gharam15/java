@@ -18,10 +18,16 @@ pipeline{
     stages{
         stage("build java app"){
             steps{
+                parallel(
+                    createFile: {
+                        sh "touch abcd"
+                    },
+                    buildJar:{
                 sh "mvn clean package install -Dmaven.test.skip=${Test}"
+                    }
+                )    
             }
         }
-         
         stage("build java app image"){
             steps{
                 sh "docker login -u ${DOCKER_USER} -p ${DOCKER_PASS} "
