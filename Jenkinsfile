@@ -18,7 +18,6 @@ pipeline{
                 sh "docker build -t gharam/java-iti:v${VERSION} ."
             }
         }
-    stages{
         stage("test Docker image"){
             steps{
                 sh "docker test -t gharam/java-iti:v${VERSION} ."
@@ -30,5 +29,4 @@ pipeline{
             }
         }
     }
-}
 }
