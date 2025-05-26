@@ -1,8 +1,8 @@
-@Library('libx') 
+@Library('libx')
 
 pipeline {
     agent {
-        label "java"
+        label 'java'
     }
     stages {
         stage('Build') {
