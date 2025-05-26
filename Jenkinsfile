@@ -1,2 +1,2 @@
 @Library('libx') _
-javaPipeline()
+call()
