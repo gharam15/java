@@ -13,19 +13,19 @@ pipeline{
     }
 
     stages{
-        stage("build Docker image"){
+        stage("build java app"){
             steps{
-                sh "docker build -t gharam/java-iti:v${VERSION} ."
+                sh "mvn clean package install ."
             }
         }
-        stage("test Docker image"){
+        stage("test java app"){
             steps{
-                sh "docker test -t gharam/java-iti:v${VERSION} ."
+                sh "mvn test"
             }
         }   
-        stage("Push Docker image"){
+        stage("build java app image"){
             steps{
-                sh "docker push gharam/java-iti:v${VERSION}"
+                sh "docker build -t gharam/java-iti:v${VERSION} ."
             }
         }
     }
