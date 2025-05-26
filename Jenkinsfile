@@ -5,10 +5,6 @@ pipeline {
         label "java"
     }
 
-    environment {
-        IMAGE_NAME = "gharam/java-iti:${env.BUILD_NUMBER}"
-    }
-
     stages {
         stage('Build Java') {
             steps {
@@ -20,7 +16,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image with tag: ${env.IMAGE_NAME}"
-                    sh "docker build -t ${env.IMAGE_NAME} ."
+                    sh "docker build -t gharam/java-iti:${BUILD_NUMBER} ."
                 }
             }
         }
